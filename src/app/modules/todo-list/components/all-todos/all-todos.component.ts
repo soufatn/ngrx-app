@@ -4,7 +4,7 @@ import { Todo } from '@Models/todo';
 import { AppState } from '@StoreConfig';
 import { Store, select } from '@ngrx/store';
 import { TodoListModule } from '@Actions/todo-list.action';
-import { selectTodoListState$, selectTodosLoading$, selectTodos$ } from '@Selectors/todo-list.selector';
+import { selectTodosLoading$, selectTodos$ } from '@Selectors/todo-list.selector';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
