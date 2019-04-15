@@ -4,8 +4,7 @@ import { Todo } from '@Models/todo';
 import { AppState } from '@StoreConfig';
 import { Store, select } from '@ngrx/store';
 import { TodoListModule } from '@Actions/todo-list.action';
-import { selectTodos$ } from '@Selectors/todo-list.selector';
-import { TodoListService } from '@Services/todo-list.service';
+import { selectTodoListState$, selectTodosLoading$, selectTodos$ } from '@Selectors/todo-list.selector';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -17,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class AllTodosComponent implements OnInit {
   public todos$: Observable<Todo[]>;
+  public todosLoading: Observable<boolean>;
   public todoForm: FormGroup;
   private todosLength: number;
 
@@ -24,7 +24,6 @@ export class AllTodosComponent implements OnInit {
     private store: Store<AppState>,
     @Inject(FormBuilder) fb: FormBuilder,
     private router: Router,
-    private todoListService: TodoListService
   ) {
     // On remplace la fonction par le sélecteur
     this.todos$ = store.pipe(
@@ -37,6 +36,7 @@ export class AllTodosComponent implements OnInit {
       title: ['', Validators.required],
       completed: [false, Validators]
     });
+    this.todosLoading = store.pipe(select(selectTodosLoading$));
   }
 
   createTodo(todo: Todo) {
@@ -59,9 +59,6 @@ export class AllTodosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.todoListService.getTodos()
-      .subscribe((todos) => {
-        this.store.dispatch(new TodoListModule.InitTodos(todos));
-      });
+    this.store.dispatch(new TodoListModule.LoadInitTodos());
   }
 }

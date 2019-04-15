@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, getReducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
+import { appEffects, REDUCER_TOKEN, getReducers } from './store';
 import { appRouting } from './app.routing';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,7 +20,8 @@ import { TodoListService } from './services/todo-list.service';
     // ReactiveFormsModule,
     // FormsModule,
     appRouting,
-    StoreModule.forRoot(REDUCER_TOKEN)
+    StoreModule.forRoot(REDUCER_TOKEN),
+    EffectsModule.forRoot(appEffects),
   ],
   providers: [
     TodoListService,

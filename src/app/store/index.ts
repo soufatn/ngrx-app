@@ -2,6 +2,7 @@ import { ActionReducerMap } from '@ngrx/store';
 import { todosReducer } from './reducers/todo-list.reducer';
 import { TodoListState } from '../models/todo';
 import { InjectionToken } from '@angular/core';
+import { TodoListEffects } from '@Effects/todo-list.effect';
 
 // Le root reducer
 const reducers = {
@@ -19,3 +20,5 @@ export function getReducers() {
 
 // Nécéssaire pour l'AOT
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('Registered Reducers');
+
+export const appEffects = [TodoListEffects];

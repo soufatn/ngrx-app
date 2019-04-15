@@ -8,3 +8,6 @@ export const selectTodoListState$ = (state: AppState) => state.todos;
 export const selectTodos$ = createSelector(selectTodoListState$, (todos) => todos.data);
 
 export const selectTodoSelected$ = createSelector(selectTodoListState$, (todos) => todos.selectedTodo);
+
+export const selectTodosLoading$ = createSelector(selectTodoListState$,(todos) => todos.loading);
+export const selectTodosLoaded$ = createSelector(selectTodoListState$,(todos) => todos.loaded);
