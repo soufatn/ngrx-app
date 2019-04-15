@@ -6,12 +6,15 @@ import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, getReducers } from './store';
 import { appRouting } from './app.routing';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { TodoListService } from './services/todo-list.service';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     // ReactiveFormsModule,
     // FormsModule,
@@ -19,6 +22,7 @@ import { appRouting } from './app.routing';
     StoreModule.forRoot(REDUCER_TOKEN)
   ],
   providers: [
+    TodoListService,
     {provide: REDUCER_TOKEN, useFactory: getReducers}
   ],
   bootstrap: [AppComponent]

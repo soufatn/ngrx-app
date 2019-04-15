@@ -5,6 +5,7 @@ import { AppState } from '@StoreConfig';
 import { Store, select } from '@ngrx/store';
 import { TodoListModule } from '@Actions/todo-list.action';
 import { selectTodos$ } from '@Selectors/todo-list.selector';
+import { TodoListService } from '@Services/todo-list.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -22,7 +23,8 @@ export class AllTodosComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     @Inject(FormBuilder) fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private todoListService: TodoListService
   ) {
     // On remplace la fonction par le sélecteur
     this.todos$ = store.pipe(
@@ -57,6 +59,9 @@ export class AllTodosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new TodoListModule.InitTodos());
+    this.todoListService.getTodos()
+      .subscribe((todos) => {
+        this.store.dispatch(new TodoListModule.InitTodos(todos));
+      });
   }
 }

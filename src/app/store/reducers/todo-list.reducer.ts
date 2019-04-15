@@ -1,6 +1,5 @@
 import { TodoListState } from '../../models/todo';
 import { TodoListModule } from '../actions/todo-list.action';
-import { todosMock } from '../../mocks/todo-list';
 
 // les valeurs par défaut du state
 const initialState: TodoListState = {
@@ -21,7 +20,7 @@ export function todosReducer(
             return {
                 ...state,
                 data: [
-                    ...todosMock // Injecte le mock
+                    ...action.payload
                 ]
             };
         case TodoListModule.ActionTypes.CREATE_TODO:

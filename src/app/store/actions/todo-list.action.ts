@@ -12,6 +12,7 @@ export namespace TodoListModule {
 
     export class InitTodos {
         readonly type = ActionTypes.INIT_TODOS;
+        constructor(public payload: Todo[]){ }
     }
 
     export class CreateTodo {
